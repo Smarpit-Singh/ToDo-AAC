@@ -8,21 +8,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 
+import com.example.android.todoaac.database.AppDatabase;
 import com.example.android.todoaac.database.TaskEntry;
+
+import java.util.Date;
 
 
 public class AddTaskActivity extends AppCompatActivity {
 
-    // Extra for the task ID to be received in the intent
+
     public static final String EXTRA_TASK_ID = "extraTaskId";
-    // Extra for the task ID to be received after rotation
     public static final String INSTANCE_TASK_ID = "instanceTaskId";
 
     public static final int PRIORITY_HIGH = 1;
     public static final int PRIORITY_MEDIUM = 2;
     public static final int PRIORITY_LOW = 3;
-
-    // Constant for default task id to be used when not in update mode
     private static final int DEFAULT_TASK_ID = -1;
 
     private static final String TAG = AddTaskActivity.class.getSimpleName();
@@ -33,11 +33,15 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private int mTaskId = DEFAULT_TASK_ID;
 
+    private AppDatabase mDB;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
         initViews();
+
+        mDB = AppDatabase.getsInstance(getApplicationContext());
 
         if (savedInstanceState != null && savedInstanceState.containsKey(INSTANCE_TASK_ID)) {
             mTaskId = savedInstanceState.getInt(INSTANCE_TASK_ID, DEFAULT_TASK_ID);
@@ -79,7 +83,14 @@ public class AddTaskActivity extends AppCompatActivity {
 
 
     public void onSaveButtonClicked() {
-        // Not yet implemented
+        String description = mEditText.getText().toString();
+        int priority = getPriorityFromViews();
+        Date date = new Date();
+
+        TaskEntry tsk = new TaskEntry(description, priority, date);
+
+        mDB.taskDao().insertTask(tsk);
+        finish();
     }
 
 
