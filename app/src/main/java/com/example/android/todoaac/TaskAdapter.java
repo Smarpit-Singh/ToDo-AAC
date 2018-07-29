@@ -103,6 +103,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
         void onItemClickListener(int itemId);
     }
 
+    public List<TaskEntry> getmTaskEntries() {
+        return mTaskEntries;
+    }
 
     class TaskViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
