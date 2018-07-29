@@ -57,10 +57,11 @@ public class AddTaskActivity extends AppCompatActivity {
 
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
-                LiveData<TaskEntry> task = mDB.taskDao().loadTaskById(mTaskId);
+                final LiveData<TaskEntry> task = mDB.taskDao().loadTaskById(mTaskId);
                 task.observe(this, new Observer<TaskEntry>() {
                     @Override
                     public void onChanged(@Nullable TaskEntry taskEntry) {
+                        task.removeObserver(this);
                         populateUI(taskEntry);
                     }
                 });
