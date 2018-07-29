@@ -1,7 +1,10 @@
 package com.example.android.todoaac;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -54,19 +57,14 @@ public class AddTaskActivity extends AppCompatActivity {
 
                 mTaskId = intent.getIntExtra(EXTRA_TASK_ID, DEFAULT_TASK_ID);
 
-                AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                LiveData<TaskEntry> task = mDB.taskDao().loadTaskById(mTaskId);
+                task.observe(this, new Observer<TaskEntry>() {
                     @Override
-                    public void run() {
-                        final TaskEntry task = mDB.taskDao().loadTaskById(mTaskId);
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                populateUI(task);
-                            }
-                        });
+                    public void onChanged(@Nullable TaskEntry taskEntry) {
+                        populateUI(taskEntry);
                     }
                 });
+
             }
         }
     }
