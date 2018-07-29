@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-    This vertical linear layout contains all the views in the AddTaskActivity code.
-    This includes an EditText to adtaskEntrytask description, and buttons to select a priority
--->
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +11,7 @@
     android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <!-- EditText for getttaskEntrytask description input -->
+
     <EditText
         android:id="@+id/editTextTaskDescription"
         android:layout_width="match_parent"
@@ -22,7 +20,7 @@
         android:hint="@string/edit_task_description"
         android:paddingBottom="@dimen/activity_horizontal_margin" />
 
-    <!-- TextView and FrameLayout (which contains buttons) for Priority Selection -->
+
     <TextView
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
@@ -33,7 +31,7 @@
         android:text="@string/priority_string"
         android:textColor="@android:color/primary_text_light" />
 
-    <!-- RadioGroup for visible selection of a priority -->
+
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
@@ -73,7 +71,7 @@
 
     </RadioGroup>
 
-    <!-- Add button -->
+
     <Button
         android:id="@+id/saveButton"
         style="@style/TextAppearance.AppCompat.Large"
